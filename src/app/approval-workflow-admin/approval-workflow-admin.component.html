@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Configure Approval Workflow</h2>
+    <form (ngSubmit)="onSubmitConfig()">
+      <div *ngFor="let level of approvalLevels; let i = index" class="form-group">
+        <h4>{{ level.role }}</h4>
+        <label for="assignedUser">Assign User:</label>
+        <input type="text" [(ngModel)]="level.assignedUser" name="assignedUser{{i}}" class="form-control" placeholder="Enter username">
+      </div>
+      <div *ngFor="let po of poList">
+        <p>{{ po.description }} - {{ po.status }}</p>
+        <button (click)="approvePO(po.id, 'Team Lead')">Approve as Team Lead</button>
+        <button (click)="approvePO(po.id, 'Department Manager')">Approve as Department Manager</button>
+        <button (click)="approvePO(po.id, 'Finance Manager')">Approve as Finance Manager</button>
+      </div>
+      
+      <div class="btn-group mt-3">
+        <button type="button" class="btn btn-secondary" (click)="addApprovalLevel()">Add Approval Level</button>
+        <button type="button" class="btn btn-danger" (click)="removeApprovalLevel()" [disabled]="approvalLevels.length <= 1">Remove Approval Level</button>
+      </div>
+      
+      <button type="submit" class="btn btn-primary mt-3">Save Workflow</button>
+    </form>
+  </div>
+  

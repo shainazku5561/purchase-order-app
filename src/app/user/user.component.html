@@ -1,0 +1,43 @@
+<div *ngIf="user">
+  <h2>User Dashboard</h2>
+  <form (ngSubmit)="handleLogin()">
+    <label>Username:</label>
+    <input type="text" [(ngModel)]="username">
+    <br>
+    <label>Password:</label>
+    <input type="password" [(ngModel)]="password">
+    <br>
+    <button type="submit">Login</button>
+  </form>
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Role:</strong> {{ user.role }}</p>
+  <p>Email: {{ user.email }}</p>
+
+  </div>
+  <div class="create-po">
+
+    <h2>Create New Purchase Order</h2>
+    <form (ngSubmit)="createPO()">
+      <label>Material:</label>
+      <select [(ngModel)]="po.materialId">
+        <option *ngFor="let material of materials" [value]="material.id">{{ material.name }}</option>
+      </select>
+      <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" [(ngModel)]="newPO.title" name="title" required>
+      </div>
+      <div>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" [(ngModel)]="newPO.amount" name="amount" required>
+      </div>
+      <label>Quantity:</label>
+      <input type="number" [(ngModel)]="po.quantity">
+      <button type="submit">Create PO</button>
+    </form>
+    <p *ngIf="successMessage">{{ successMessage }}</p>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  
+  </div>
+  <div *ngIf="!user">
+    <p>Loading user details...</p>
+  </div>

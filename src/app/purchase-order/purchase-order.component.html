@@ -1,0 +1,39 @@
+<div>
+    <h2>Create Purchase Order</h2>
+  
+    <form (ngSubmit)="createPO()" #poForm="ngForm">
+      <div>
+        <label for="userId">User ID:</label>
+        <input type="number" id="userId" [(ngModel)]="po.userId" name="userId" required />
+      </div>
+  
+      <div>
+        <label for="status">Status:</label>
+        <select id="status" [(ngModel)]="po.status" name="status" required>
+          <option value="Draft">Draft</option>
+          <option value="Submitted">Submitted</option>
+          <option value="Approved">Approved</option>
+        </select>
+      </div>
+  
+      <div>
+        <label for="items">Items:</label>
+        <div *ngFor="let item of po.items; let i = index">
+          <div>
+            <label for="itemName{{i}}">Item Name:</label>
+            <input type="text" id="itemName{{i}}" [(ngModel)]="item.name" name="itemName{{i}}" required />
+          </div>
+          <div>
+            <label for="itemQuantity{{i}}">Quantity:</label>
+            <input type="number" id="itemQuantity{{i}}" [(ngModel)]="item.quantity" name="itemQuantity{{i}}" required />
+          </div>
+          <button type="button" (click)="removeItem(i)">Remove Item</button>
+        </div>
+        <button type="button" (click)="addItem()">Add Item</button>
+      </div>
+  
+      <button type="submit" [disabled]="!poForm.form.valid">Create PO</button>
+      <button type="button" (click)="submitPO()" [disabled]="!po.id">Submit PO for Approval</button>
+    </form>
+  </div>
+  

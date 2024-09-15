@@ -1,0 +1,24 @@
+<h2>Configure Approval Workflow</h2>
+<form [formGroup]="approvalWorkflowForm">
+  <label>Number of Approval Levels:</label>
+  <input type="number" formControlName="numLevels">
+  <div formArrayName="approvalLevels">
+    <div *ngFor="let level of approvalLevels.controls; let i = index">
+      <label>Level {{ i + 1 }}:</label>
+      <select formControlName="user">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" (click)="saveApprovalWorkflow()">Save</button>
+</form>
+
+<!-- Display the configured approval workflow -->
+<div *ngIf="approvalWorkflow">
+  <h2>Approval Workflow:</h2>
+  <ul>
+    <li *ngFor="let level of approvalWorkflow.approvalLevels">
+      Level {{ level.level }}: {{ level.user.name }}
+    </li>
+  </ul>
+</div>
